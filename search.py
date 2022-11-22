@@ -4,6 +4,7 @@ import subprocess
 from dataclasses import dataclass
 
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 
 class Conf:
@@ -12,6 +13,13 @@ class Conf:
 
 conf = Conf()
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/search/update-git")
